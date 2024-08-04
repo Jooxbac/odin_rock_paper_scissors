@@ -2,9 +2,10 @@
  * VARIABLES
  ************/
 
-let roundNumber = 1;
-let humanSelection;
 let computerSelection;
+let humanSelection;
+let numberOfRounds = 5;
+let roundNumber = 1;
 
 /************
  * FUNCTIONS
@@ -54,6 +55,12 @@ function getHumanChoice() {
 function playGame() {
   let computerScore = 0;
   let humanScore = 0;
+
+  console.log(
+    "You are playing " +
+      numberOfRounds +
+      " rounds of a rock paper scissors game against the computer. Good luck."
+  );
 
   /**
    * Allows to play a single round
@@ -116,7 +123,7 @@ function playGame() {
     );
   }
 
-  for (let index = 0; index < 5; index++) {
+  for (let index = 0; index < numberOfRounds; index++) {
     humanSelection = getHumanChoice();
     computerSelection = getComputerChoice();
     playRound(computerSelection, humanSelection);
