@@ -4,7 +4,7 @@
 
 let computerSelection;
 let humanSelection;
-let numberOfRounds = 5;
+const NUMBER_OF_ROUNDS = 5;
 let roundNumber = 1;
 
 /************
@@ -58,7 +58,7 @@ function playGame() {
 
   console.log(
     "You are playing " +
-      numberOfRounds +
+      NUMBER_OF_ROUNDS +
       " rounds of a rock paper scissors game against the computer. Good luck."
   );
 
@@ -123,7 +123,7 @@ function playGame() {
     );
   }
 
-  for (let index = 0; index < numberOfRounds; index++) {
+  for (let index = 0; index < NUMBER_OF_ROUNDS; index++) {
     humanSelection = getHumanChoice();
     computerSelection = getComputerChoice();
     playRound(computerSelection, humanSelection);
@@ -157,11 +157,87 @@ function playGame() {
   }
 }
 
+
+
+
+
+  /**
+   * Allows to play a single round
+   * Compares the shapes, increments scores and show messages with info for the round
+   * @param {string} computerChoice the shape chosen by the computer
+   * @param {string} humanChoice the shape chosen by the human player
+   */
+  function playRound(computerChoice, humanChoice) {
+    console.log(
+      "ROUND #" +
+        roundNumber +
+        "\nThe computer chose: " +
+        computerChoice +
+        "\nYou chose " +
+        humanChoice
+    );
+
+    if (computerChoice === humanChoice) {
+      console.log("It's a draw!");
+    } else {
+      switch (computerChoice) {
+        case "rock":
+          if (humanChoice === "paper") {
+            console.log("You win! Paper beats rock");
+            humanScore++;
+          } else if (humanChoice === "scissors") {
+            console.log("You lose! Rock beats scissors");
+            computerScore++;
+          }
+          break;
+        case "paper":
+          if (humanChoice === "rock") {
+            console.log("You lose! Paper beats rock");
+            computerScore++;
+          } else if (humanChoice === "scissors") {
+            console.log("You win! Scissors beats paper");
+            humanScore++;
+          }
+          break;
+        case "scissors":
+          if (humanChoice === "rock") {
+            console.log("You win! Rock beats scissors");
+            humanScore++;
+          } else if (humanChoice === "paper") {
+            console.log("You lose! Scissors beats paper");
+            computerScore++;
+          }
+          break;
+        default:
+          break;
+      }
+    }
+
+    console.log(
+      "\nSCORES:\nComputer score: " +
+        computerScore +
+        "\nYour score " +
+        humanScore +
+        "\n\n"
+    );
+  }
+
 /************
  * MAIN
  ************/
 
+let buttons = document.querySelectorAll('button');
+for(let button of Array.from(buttons)){
+  button.addEventListener('click', (e) => {
+    humanSelection = e.target.innerText;
+    computerSelection = getComputerChoice();
+    playRound(computerSelection, humanSelection);
+  })
+}
+
 // Timeout added to let the browser load the HTML
-setTimeout(() => {
-  playGame();
-}, 1000);
+// setTimeout(() => {
+//   playGame();
+// }, 1000);
+
+
